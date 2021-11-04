@@ -120,6 +120,8 @@ void display(struct ASTNode *T,int indent)
                         while (T0) {
                             if (T0->ptr[0]->kind==ID)
                                 printf("%*c %s\n",indent+6,' ',T0->ptr[0]->type_id);
+                            else if (T0->ptr[0]->kind==DIMENSION)
+                                display(T0->ptr[0], indent+6);
                             else if (T0->ptr[0]->kind==ASSIGNOP)
                                 {
                                 printf("%*c %s ASSIGNOP\n ",indent+6,' ',T0->ptr[0]->ptr[0]->type_id);
@@ -167,6 +169,12 @@ void display(struct ASTNode *T,int indent)
   //                  display(T,indent+3);
                     printf("\n");
                     break;
-         }
-      }
+    case DIMENSION: printf("%*cID：%s\n", indent, ' ', T->type_id);
+                    display(T->ptr[0],indent);
+                    break;
+    case DIMENSION_LIST: printf("%*c维大小：%d\n", indent, ' ', T->type_int);
+                    display(T->ptr[1],indent);
+                    break;
+    }
+  }
 }
