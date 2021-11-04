@@ -45,8 +45,10 @@ char   (\'[^\n]\')|(\"[^\n]\")
 "-"			{return MINUS;}
 "*"			{return STAR;}
 "/"			{return DIV;}
-"&&"         {return AND;}
-"||"            {return OR;}
+"++"        {return DPLUS;}
+"--"        {return DMINUS;}
+"&&"        {return AND;}
+"||"        {return OR;}
 "!"			{return NOT;}
 "("			{return LP;}
 ")"			{return RP;}

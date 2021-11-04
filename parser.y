@@ -31,10 +31,10 @@ void display(struct ASTNode *,int);
 %token <type_float> FLOAT          /*指定FLOAT的语义值是type_float，有词法分析得到的标识符字符串*/
 %token <type_char> CHAR           /*指定CHAR的语义值是type_char，有词法分析得到的数值*/
 
-%token DPLUS LP RP LC RC SEMI COMMA      /*用bison对该文件编译时，带参数-d，生成的.tab.h中给这些单词进行编码，可在lex.l中包含parser.tab.h使用这些单词种类码*/
+%token DPLUS DMINUS LP RP LC RC SEMI COMMA      /*用bison对该文件编译时，带参数-d，生成的.tab.h中给这些单词进行编码，可在lex.l中包含parser.tab.h使用这些单词种类码*/
 %token PLUS MINUS STAR DIV ASSIGNOP AND OR NOT IF ELSE WHILE RETURN FOR BREAK CONTINUE SWITCH CASE COLON DEFAULT
 /*以下为接在上述token后依次编码的枚举常量，作为AST结点类型标记*/
-%token EXT_DEF_LIST EXT_VAR_DEF FUNC_DEF FUNC_DEC EXT_DEC_LIST PARAM_LIST PARAM_DEC VAR_DEF DEC_LIST DEF_LIST COMP_STM STM_LIST EXP_STMT IF_THEN IF_THEN_ELSE
+%token EXT_DEF_LIST EXT_VAR_DEF FUNC_DEF FUNC_DEC EXT_DEC_LIST PARAM_LIST PARAM_DEC VAR_DEF DEC_LIST DEF_LIST COMP_STM STM_LIST EXP_STMT IF_THEN IF_THEN_ELSE DPLUS_BEFORE DPLUS_AFTER DMINUS_BEFORE DMINUS_AFTER
 %token FUNC_CALL ARGS FUNCTION PARAM ARG CALL LABEL GOTO JLT JLE JGT JGE EQ NEQ
 
 
@@ -44,7 +44,7 @@ void display(struct ASTNode *,int);
 %left RELOP
 %left PLUS MINUS
 %left STAR DIV
-%right UMINUS NOT DPLUS
+%right UMINUS NOT DPLUS DMINUS
 
 %nonassoc LOWER_THEN_ELSE
 %nonassoc ELSE
@@ -113,8 +113,10 @@ Exp:    Exp ASSIGNOP Exp {$$=mknode(2,ASSIGNOP,yylineno,$1,$3);strcpy($$->type_i
       | LP Exp RP     {$$=$2;}
       | MINUS Exp %prec UMINUS   {$$=mknode(1,UMINUS,yylineno,$2);strcpy($$->type_id,"UMINUS");}
       | NOT Exp       {$$=mknode(1,NOT,yylineno,$2);strcpy($$->type_id,"NOT");}
-      | DPLUS  Exp      {$$=mknode(1,DPLUS,yylineno,$2);strcpy($$->type_id,"DPLUS");}
-      |   Exp DPLUS      {$$=mknode(1,DPLUS,yylineno,$1);strcpy($$->type_id,"DPLUS");}
+      | DPLUS  Exp      {$$=mknode(1,DPLUS_AFTER,yylineno,$2);strcpy($$->type_id,"DPLUS_AFTER");}
+      | Exp DPLUS      {$$=mknode(1,DPLUS_BEFORE,yylineno,$1);strcpy($$->type_id,"DPLUS_BEFORE");}
+      | DMINUS Exp    {$$=mknode(1,DMINUS_AFTER, yylineno,$2);strcpy($$->type_id,"DMINUS_AFTER");}
+      | Exp DMINUS    {$$=mknode(1,DMINUS_BEFORE,yylineno,$1);strcpy($$->type_id,"DMINUS_BEFORE");}
       | ID LP Args RP {$$=mknode(1,FUNC_CALL,yylineno,$3);strcpy($$->type_id,$1);}
       | ID LP RP      {$$=mknode(0,FUNC_CALL,yylineno);strcpy($$->type_id,$1);}
       | ID            {$$=mknode(0,ID,yylineno);strcpy($$->type_id,$1);}

@@ -46,62 +46,67 @@
      FLOAT = 262,
      CHAR = 263,
      DPLUS = 264,
-     LP = 265,
-     RP = 266,
-     LC = 267,
-     RC = 268,
-     SEMI = 269,
-     COMMA = 270,
-     PLUS = 271,
-     MINUS = 272,
-     STAR = 273,
-     DIV = 274,
-     ASSIGNOP = 275,
-     AND = 276,
-     OR = 277,
-     NOT = 278,
-     IF = 279,
-     ELSE = 280,
-     WHILE = 281,
-     RETURN = 282,
-     FOR = 283,
-     BREAK = 284,
-     CONTINUE = 285,
-     SWITCH = 286,
-     CASE = 287,
-     COLON = 288,
-     DEFAULT = 289,
-     EXT_DEF_LIST = 290,
-     EXT_VAR_DEF = 291,
-     FUNC_DEF = 292,
-     FUNC_DEC = 293,
-     EXT_DEC_LIST = 294,
-     PARAM_LIST = 295,
-     PARAM_DEC = 296,
-     VAR_DEF = 297,
-     DEC_LIST = 298,
-     DEF_LIST = 299,
-     COMP_STM = 300,
-     STM_LIST = 301,
-     EXP_STMT = 302,
-     IF_THEN = 303,
-     IF_THEN_ELSE = 304,
-     FUNC_CALL = 305,
-     ARGS = 306,
-     FUNCTION = 307,
-     PARAM = 308,
-     ARG = 309,
-     CALL = 310,
-     LABEL = 311,
-     GOTO = 312,
-     JLT = 313,
-     JLE = 314,
-     JGT = 315,
-     JGE = 316,
-     EQ = 317,
-     NEQ = 318,
-     UMINUS = 319,
-     LOWER_THEN_ELSE = 320
+     DMINUS = 265,
+     LP = 266,
+     RP = 267,
+     LC = 268,
+     RC = 269,
+     SEMI = 270,
+     COMMA = 271,
+     PLUS = 272,
+     MINUS = 273,
+     STAR = 274,
+     DIV = 275,
+     ASSIGNOP = 276,
+     AND = 277,
+     OR = 278,
+     NOT = 279,
+     IF = 280,
+     ELSE = 281,
+     WHILE = 282,
+     RETURN = 283,
+     FOR = 284,
+     BREAK = 285,
+     CONTINUE = 286,
+     SWITCH = 287,
+     CASE = 288,
+     COLON = 289,
+     DEFAULT = 290,
+     EXT_DEF_LIST = 291,
+     EXT_VAR_DEF = 292,
+     FUNC_DEF = 293,
+     FUNC_DEC = 294,
+     EXT_DEC_LIST = 295,
+     PARAM_LIST = 296,
+     PARAM_DEC = 297,
+     VAR_DEF = 298,
+     DEC_LIST = 299,
+     DEF_LIST = 300,
+     COMP_STM = 301,
+     STM_LIST = 302,
+     EXP_STMT = 303,
+     IF_THEN = 304,
+     IF_THEN_ELSE = 305,
+     DPLUS_BEFORE = 306,
+     DPLUS_AFTER = 307,
+     DMINUS_BEFORE = 308,
+     DMINUS_AFTER = 309,
+     FUNC_CALL = 310,
+     ARGS = 311,
+     FUNCTION = 312,
+     PARAM = 313,
+     ARG = 314,
+     CALL = 315,
+     LABEL = 316,
+     GOTO = 317,
+     JLT = 318,
+     JLE = 319,
+     JGT = 320,
+     JGE = 321,
+     EQ = 322,
+     NEQ = 323,
+     UMINUS = 324,
+     LOWER_THEN_ELSE = 325
    };
 #endif
 /* Tokens.  */
@@ -112,62 +117,67 @@
 #define FLOAT 262
 #define CHAR 263
 #define DPLUS 264
-#define LP 265
-#define RP 266
-#define LC 267
-#define RC 268
-#define SEMI 269
-#define COMMA 270
-#define PLUS 271
-#define MINUS 272
-#define STAR 273
-#define DIV 274
-#define ASSIGNOP 275
-#define AND 276
-#define OR 277
-#define NOT 278
-#define IF 279
-#define ELSE 280
-#define WHILE 281
-#define RETURN 282
-#define FOR 283
-#define BREAK 284
-#define CONTINUE 285
-#define SWITCH 286
-#define CASE 287
-#define COLON 288
-#define DEFAULT 289
-#define EXT_DEF_LIST 290
-#define EXT_VAR_DEF 291
-#define FUNC_DEF 292
-#define FUNC_DEC 293
-#define EXT_DEC_LIST 294
-#define PARAM_LIST 295
-#define PARAM_DEC 296
-#define VAR_DEF 297
-#define DEC_LIST 298
-#define DEF_LIST 299
-#define COMP_STM 300
-#define STM_LIST 301
-#define EXP_STMT 302
-#define IF_THEN 303
-#define IF_THEN_ELSE 304
-#define FUNC_CALL 305
-#define ARGS 306
-#define FUNCTION 307
-#define PARAM 308
-#define ARG 309
-#define CALL 310
-#define LABEL 311
-#define GOTO 312
-#define JLT 313
-#define JLE 314
-#define JGT 315
-#define JGE 316
-#define EQ 317
-#define NEQ 318
-#define UMINUS 319
-#define LOWER_THEN_ELSE 320
+#define DMINUS 265
+#define LP 266
+#define RP 267
+#define LC 268
+#define RC 269
+#define SEMI 270
+#define COMMA 271
+#define PLUS 272
+#define MINUS 273
+#define STAR 274
+#define DIV 275
+#define ASSIGNOP 276
+#define AND 277
+#define OR 278
+#define NOT 279
+#define IF 280
+#define ELSE 281
+#define WHILE 282
+#define RETURN 283
+#define FOR 284
+#define BREAK 285
+#define CONTINUE 286
+#define SWITCH 287
+#define CASE 288
+#define COLON 289
+#define DEFAULT 290
+#define EXT_DEF_LIST 291
+#define EXT_VAR_DEF 292
+#define FUNC_DEF 293
+#define FUNC_DEC 294
+#define EXT_DEC_LIST 295
+#define PARAM_LIST 296
+#define PARAM_DEC 297
+#define VAR_DEF 298
+#define DEC_LIST 299
+#define DEF_LIST 300
+#define COMP_STM 301
+#define STM_LIST 302
+#define EXP_STMT 303
+#define IF_THEN 304
+#define IF_THEN_ELSE 305
+#define DPLUS_BEFORE 306
+#define DPLUS_AFTER 307
+#define DMINUS_BEFORE 308
+#define DMINUS_AFTER 309
+#define FUNC_CALL 310
+#define ARGS 311
+#define FUNCTION 312
+#define PARAM 313
+#define ARG 314
+#define CALL 315
+#define LABEL 316
+#define GOTO 317
+#define JLT 318
+#define JLE 319
+#define JGT 320
+#define JGE 321
+#define EQ 322
+#define NEQ 323
+#define UMINUS 324
+#define LOWER_THEN_ELSE 325
 
 
 
@@ -183,7 +193,7 @@ typedef union YYSTYPE
 	struct ASTNode *ptr;
 }
 /* Line 1529 of yacc.c.  */
-#line 187 "parser.tab.h"
+#line 197 "parser.tab.h"
 	YYSTYPE;
 # define yystype YYSTYPE /* obsolescent; will be withdrawn */
 # define YYSTYPE_IS_DECLARED 1

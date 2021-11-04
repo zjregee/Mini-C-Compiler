@@ -16,7 +16,7 @@ int main() {
     m = read();
     i = 1;
 
-    for(int z = 0; z <= 10; z = z + 1) {
+    for(int z = 0; z <= 10; z++) {
         write(z);
         break;
     }
