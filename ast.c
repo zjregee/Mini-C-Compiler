@@ -94,6 +94,20 @@ void display(struct ASTNode *T,int indent)
                         printf("%*cELSE子句：(%d)\n",indent+3,' ',T->pos);
                         display(T->ptr[2],indent+6);      //显示else子句
                         break;
+    case FOR:           printf("%*cFOR循环语句：(%d)\n", indent, ' ', T->pos);
+                        printf("%*c循环变量定义：\n", indent+3, ' ');
+                        display(T->ptr[0], indent+6);             // 显示变量声明赋值
+                        printf("%*c循环条件：\n", indent+3, ' ');
+                        display(T->ptr[1], indent+6);             // 显示循环条件
+                        printf("%*c更新语句：\n", indent+3, ' ');
+                        display(T->ptr[2], indent+6);             // 显示更新语句
+                        printf("%*c循环体：(%d)\n", indent+3, ' ', T->pos);
+                        display(T->ptr[3], indent+6);             // 显示循环体
+                        break;
+    case BREAK:         printf("%*cBREAK中断返回语句：(%d)\n", indent, ' ', T->pos);
+                        break;
+    case CONTINUE:      printf("%*cCONTINUE跳出继续循环语句：(%d)\n", indent, ' ', T->pos);
+                        break;
     case DEF_LIST:      display(T->ptr[0],indent);    //显示该局部变量定义列表中的第一个
                         display(T->ptr[1],indent);    //显示其它局部变量定义
                         break;

@@ -32,7 +32,7 @@ void display(struct ASTNode *,int);
 %token <type_char> CHAR           /*指定CHAR的语义值是type_char，有词法分析得到的数值*/
 
 %token DPLUS LP RP LC RC SEMI COMMA      /*用bison对该文件编译时，带参数-d，生成的.tab.h中给这些单词进行编码，可在lex.l中包含parser.tab.h使用这些单词种类码*/
-%token PLUS MINUS STAR DIV ASSIGNOP AND OR NOT IF ELSE WHILE RETURN FOR SWITCH CASE COLON DEFAULT
+%token PLUS MINUS STAR DIV ASSIGNOP AND OR NOT IF ELSE WHILE RETURN FOR BREAK CONTINUE SWITCH CASE COLON DEFAULT
 /*以下为接在上述token后依次编码的枚举常量，作为AST结点类型标记*/
 %token EXT_DEF_LIST EXT_VAR_DEF FUNC_DEF FUNC_DEC EXT_DEC_LIST PARAM_LIST PARAM_DEC VAR_DEF DEC_LIST DEF_LIST COMP_STM STM_LIST EXP_STMT IF_THEN IF_THEN_ELSE
 %token FUNC_CALL ARGS FUNCTION PARAM ARG CALL LABEL GOTO JLT JLE JGT JGE EQ NEQ
@@ -88,6 +88,7 @@ Stmt:   Exp SEMI    {$$=mknode(1,EXP_STMT,yylineno,$1);}
       | IF LP Exp RP Stmt %prec LOWER_THEN_ELSE   {$$=mknode(2,IF_THEN,yylineno,$3,$5);}
       | IF LP Exp RP Stmt ELSE Stmt   {$$=mknode(3,IF_THEN_ELSE,yylineno,$3,$5,$7);}
       | WHILE LP Exp RP Stmt {$$=mknode(2,WHILE,yylineno,$3,$5);}
+      | FOR LP Def Exp SEMI Exp RP Stmt {$$=mknode(4, FOR, yylineno, $3,$4,$6,$8);}
       ;
 DefList: {$$=NULL; }
         | Def DefList {$$=mknode(2,DEF_LIST,yylineno,$1,$2);}
@@ -120,6 +121,8 @@ Exp:    Exp ASSIGNOP Exp {$$=mknode(2,ASSIGNOP,yylineno,$1,$3);strcpy($$->type_i
       | INT           {$$=mknode(0,INT,yylineno);$$->type_int=$1;$$->type=INT;}
       | FLOAT         {$$=mknode(0,FLOAT,yylineno);$$->type_float=$1;$$->type=FLOAT;}
       | CHAR          {$$=mknode(0,CHAR,yylineno);$$->type_char=$1;$$->type=CHAR;}
+      | BREAK         {$$=mknode(0,BREAK,yylineno);$$->type=BREAK;}
+      | CONTINUE      {$$=mknode(0,CONTINUE,yylineno);$$->type=CONTINUE;}
       ;
 Args:    Exp COMMA Args    {$$=mknode(2,ARGS,yylineno,$1,$3);}
        | Exp               {$$=mknode(1,ARGS,yylineno,$1);}
