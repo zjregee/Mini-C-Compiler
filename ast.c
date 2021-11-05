@@ -182,6 +182,11 @@ void display(struct ASTNode *T,int indent)
     case ARRAY_LIST: display(T->ptr[0], indent);
                     display(T->ptr[1], indent);
                     break;
+    case ARRAY_N:   display(T->ptr[0], indent);
+                    display(T->ptr[1], indent);
+                    break;
+    case ARRAY_1:   display(T->ptr[0], indent);
+                    break;
     }
   }
 }

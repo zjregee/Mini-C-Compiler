@@ -97,24 +97,27 @@
      DIMENSION_LIST = 313,
      ARRAY = 314,
      ARRAY_LIST = 315,
-     FUNC_CALL = 316,
-     ARGS = 317,
-     FUNCTION = 318,
-     PARAM = 319,
-     ARG = 320,
-     CALL = 321,
-     LABEL = 322,
-     GOTO = 323,
-     JLT = 324,
-     JLE = 325,
-     JGT = 326,
-     JGE = 327,
-     EQ = 328,
-     NEQ = 329,
-     RM = 330,
-     LM = 331,
-     UMINUS = 332,
-     LOWER_THEN_ELSE = 333
+     ARRAY_N = 316,
+     ARRAY_1 = 317,
+     FUNC_CALL = 318,
+     ARGS = 319,
+     FUNCTION = 320,
+     PARAM = 321,
+     ARG = 322,
+     CALL = 323,
+     LABEL = 324,
+     GOTO = 325,
+     JLT = 326,
+     JLE = 327,
+     JGT = 328,
+     JGE = 329,
+     EQ = 330,
+     NEQ = 331,
+     LCOMMA = 332,
+     RM = 333,
+     LM = 334,
+     UMINUS = 335,
+     LOWER_THEN_ELSE = 336
    };
 #endif
 /* Tokens.  */
@@ -176,24 +179,27 @@
 #define DIMENSION_LIST 313
 #define ARRAY 314
 #define ARRAY_LIST 315
-#define FUNC_CALL 316
-#define ARGS 317
-#define FUNCTION 318
-#define PARAM 319
-#define ARG 320
-#define CALL 321
-#define LABEL 322
-#define GOTO 323
-#define JLT 324
-#define JLE 325
-#define JGT 326
-#define JGE 327
-#define EQ 328
-#define NEQ 329
-#define RM 330
-#define LM 331
-#define UMINUS 332
-#define LOWER_THEN_ELSE 333
+#define ARRAY_N 316
+#define ARRAY_1 317
+#define FUNC_CALL 318
+#define ARGS 319
+#define FUNCTION 320
+#define PARAM 321
+#define ARG 322
+#define CALL 323
+#define LABEL 324
+#define GOTO 325
+#define JLT 326
+#define JLE 327
+#define JGT 328
+#define JGE 329
+#define EQ 330
+#define NEQ 331
+#define LCOMMA 332
+#define RM 333
+#define LM 334
+#define UMINUS 335
+#define LOWER_THEN_ELSE 336
 
 
 
@@ -209,7 +215,7 @@ typedef union YYSTYPE
 	struct ASTNode *ptr;
 }
 /* Line 1529 of yacc.c.  */
-#line 213 "parser.tab.h"
+#line 219 "parser.tab.h"
 	YYSTYPE;
 # define yystype YYSTYPE /* obsolescent; will be withdrawn */
 # define YYSTYPE_IS_DECLARED 1

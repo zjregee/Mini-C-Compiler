@@ -13,8 +13,9 @@ int fibo(int a) {
 
 int main() {
     int g[5][6];
-    int m, n, i;
+    int n, i;
     int h[3] = {1, 2, 3};
+    int m[2][3] = {{1,2,3},{4,5,6}};
     char pp, qq;
     pp = '1';
     qq = 'd';
@@ -33,5 +34,6 @@ int main() {
     }
 
     d = {2, 3};
+    e = {{2,3,4},{5,6,7}};
     return 1;
 }
