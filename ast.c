@@ -175,6 +175,13 @@ void display(struct ASTNode *T,int indent)
     case DIMENSION_LIST: printf("%*c维大小：%d\n", indent, ' ', T->type_int);
                     display(T->ptr[1],indent);
                     break;
+    case ARRAY:     printf("%*c%c\n", indent, ' ', '{');
+                    display(T->ptr[0],indent+3);
+                    printf("%*c%c\n", indent, ' ', '}');
+                    break;
+    case ARRAY_LIST: display(T->ptr[0], indent);
+                    display(T->ptr[1], indent);
+                    break;
     }
   }
 }

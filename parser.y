@@ -22,7 +22,7 @@ void display(struct ASTNode *,int);
 };
 
 //  %type 定义非终结符的语义值类型
-%type  <ptr> program ExtDefList ExtDef  Specifier ExtDecList FuncDec CompSt VarList VarDec ParamDec Stmt StmList DefList Def DecList Dec Exp Args DimensionList
+%type  <ptr> program ExtDefList ExtDef  Specifier ExtDecList FuncDec CompSt VarList VarDec ParamDec Stmt StmList DefList Def DecList Dec Exp Args DimensionList ArrayList
 // CaseStmtList0 CaseStmtList
 
 //% token 定义终结符的语义值类型
@@ -34,20 +34,23 @@ void display(struct ASTNode *,int);
 %token DPLUS DMINUS LP RP LC RC LB RB SEMI COMMA      /*用bison对该文件编译时，带参数-d，生成的.tab.h中给这些单词进行编码，可在lex.l中包含parser.tab.h使用这些单词种类码*/
 %token PLUS MINUS STAR DIV ASSIGNOP AND OR NOT IF ELSE WHILE RETURN FOR BREAK CONTINUE SWITCH CASE COLON DEFAULT
 /*以下为接在上述token后依次编码的枚举常量，作为AST结点类型标记*/
-%token EXT_DEF_LIST EXT_VAR_DEF FUNC_DEF FUNC_DEC EXT_DEC_LIST PARAM_LIST PARAM_DEC VAR_DEF DEC_LIST DEF_LIST COMP_STM STM_LIST EXP_STMT IF_THEN IF_THEN_ELSE DPLUS_BEFORE DPLUS_AFTER DMINUS_BEFORE DMINUS_AFTER DIMENSION DIMENSION_LIST
+%token EXT_DEF_LIST EXT_VAR_DEF FUNC_DEF FUNC_DEC EXT_DEC_LIST PARAM_LIST PARAM_DEC VAR_DEF DEC_LIST DEF_LIST COMP_STM STM_LIST EXP_STMT IF_THEN IF_THEN_ELSE DPLUS_BEFORE DPLUS_AFTER DMINUS_BEFORE DMINUS_AFTER DIMENSION DIMENSION_LIST ARRAY ARRAY_LIST
 %token FUNC_CALL ARGS FUNCTION PARAM ARG CALL LABEL GOTO JLT JLE JGT JGE EQ NEQ
 
-
+%left COMMA
+%left ID INT FLOAT CHAR
 %left ASSIGNOP
 %left OR
 %left AND
 %left RELOP
 %left PLUS MINUS
 %left STAR DIV
+%left LM RM LP RP LC RC
 %right UMINUS NOT DPLUS DMINUS
 
 %nonassoc LOWER_THEN_ELSE
 %nonassoc ELSE
+%nonassoc BREAK CONTINUE
 
 %%
 
@@ -91,7 +94,7 @@ Stmt:   Exp SEMI    {$$=mknode(1,EXP_STMT,yylineno,$1);}
       | WHILE LP Exp RP Stmt {$$=mknode(2,WHILE,yylineno,$3,$5);}
       | FOR LP Def Exp SEMI Exp RP Stmt {$$=mknode(4, FOR, yylineno, $3,$4,$6,$8);}
       ;
-DefList: {$$=NULL; }
+DefList: %prec ID {$$=NULL; }
         | Def DefList {$$=mknode(2,DEF_LIST,yylineno,$1,$2);}
         | error SEMI   {$$=NULL;}
         ;
@@ -126,6 +129,7 @@ Exp:    Exp ASSIGNOP Exp {$$=mknode(2,ASSIGNOP,yylineno,$1,$3);strcpy($$->type_i
       | CHAR          {$$=mknode(0,CHAR,yylineno);$$->type_char=$1;$$->type=CHAR;}
       | BREAK         {$$=mknode(0,BREAK,yylineno);$$->type=BREAK;}
       | CONTINUE      {$$=mknode(0,CONTINUE,yylineno);$$->type=CONTINUE;}
+      | LC ArrayList RC {$$=mknode(1,ARRAY,yylineno,$2);} // 一维数组赋值
       ;
 Args:    Exp COMMA Args    {$$=mknode(2,ARGS,yylineno,$1,$3);}
        | Exp               {$$=mknode(1,ARGS,yylineno,$1);}
@@ -133,7 +137,9 @@ Args:    Exp COMMA Args    {$$=mknode(2,ARGS,yylineno,$1,$3);}
 DimensionList:  LB INT RB {$$=mknode(1,DIMENSION_LIST,yylineno,$2);$$->type_int=$2;} // 匹配数组的[?]
         | LB INT RB DimensionList {} {$$=mknode(2,DIMENSION_LIST,yylineno,$2,$4);$$->type_int=$2;}
         ;
-       
+ArrayList: ArrayList COMMA Exp {$$=mknode(2,ARRAY_LIST,yylineno,$1,$3);} // 匹配数组的赋值
+        | Exp {$$=mknode(1,ARRAY_LIST,yylineno,$1);} // 用type_id来存储，因为不确定元素是哪种类型的
+        ;
 %%
 
 int main(int argc, char *argv[]){
