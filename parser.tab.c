@@ -1713,7 +1713,7 @@ yyreduce:
     {
         case 2:
 #line 58 "parser.y"
-    { display((yyvsp[(1) - (1)].ptr),0);;}
+    { display((yyvsp[(1) - (1)].ptr),0);semantic_Analysis0((yyvsp[(1) - (1)].ptr));;}
     break;
 
   case 3:

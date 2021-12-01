@@ -21,6 +21,7 @@ int main() {
     qq = 'd';
     m = read();
     i = 1;
+    i++;
 
     for(int z = 0; z <= 10; z++) {
         write(z);
