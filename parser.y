@@ -26,14 +26,13 @@ void display(struct ASTNode *,int);
 // CaseStmtList0 CaseStmtList
 
 //% token 定义终结符的语义值类型
-%token <type_int> INT              /*指定INT的语义值是type_int，有词法分析得到的数值*/
+%token <type_int> INT               /*指定INT的语义值是type_int，有词法分析得到的数值*/
 %token <type_id> ID  RELOP  TYPE    /*指定ID,RELOP, TYPE 的语义值是type_id，有词法分析得到的标识符字符串*/
-%token <type_float> FLOAT          /*指定FLOAT的语义值是type_float，有词法分析得到的标识符字符串*/
-%token <type_char> CHAR           /*指定CHAR的语义值是type_char，有词法分析得到的数值*/
+%token <type_float> FLOAT           /*指定FLOAT的语义值是type_float，有词法分析得到的标识符字符串*/
+%token <type_char> CHAR             /*指定CHAR的语义值是type_char，有词法分析得到的数值*/
 
-%token DPLUS DMINUS LP RP LC RC LB RB SEMI COMMA      /*用bison对该文件编译时，带参数-d，生成的.tab.h中给这些单词进行编码，可在lex.l中包含parser.tab.h使用这些单词种类码*/
+%token DPLUS DMINUS LP RP LC RC LB RB SEMI COMMA
 %token PLUS MINUS STAR DIV ASSIGNOP AND OR NOT IF ELSE WHILE RETURN FOR BREAK CONTINUE SWITCH CASE COLON DEFAULT
-/*以下为接在上述token后依次编码的枚举常量，作为AST结点类型标记*/
 %token EXT_DEF_LIST EXT_VAR_DEF FUNC_DEF FUNC_DEC EXT_DEC_LIST PARAM_LIST PARAM_DEC VAR_DEF DEC_LIST DEF_LIST COMP_STM STM_LIST EXP_STMT IF_THEN IF_THEN_ELSE DPLUS_BEFORE DPLUS_AFTER DMINUS_BEFORE DMINUS_AFTER DIMENSION DIMENSION_LIST ARRAY ARRAY_LIST ARRAY_N ARRAY_1
 %token FUNC_CALL ARGS FUNCTION PARAM ARG CALL LABEL GOTO JLT JLE JGT JGE EQ NEQ
 
@@ -135,7 +134,7 @@ Exp:    Exp ASSIGNOP Exp {$$=mknode(2,ASSIGNOP,yylineno,$1,$3);strcpy($$->type_i
 Args:    Exp COMMA Args    {$$=mknode(2,ARGS,yylineno,$1,$3);}
        | Exp               {$$=mknode(1,ARGS,yylineno,$1);}
        ;
-DimensionList:  LB INT RB {$$=mknode(1,DIMENSION_LIST,yylineno,$2);$$->type_int=$2;} // 匹配数组的[?]
+DimensionList:  LB INT RB {$$=mknode(1,DIMENSION_LIST,yylineno,$2);$$->type_int=$2;}
         | LB INT RB DimensionList {} {$$=mknode(2,DIMENSION_LIST,yylineno,$2,$4);$$->type_int=$2;}
         ;
 ArrayListN: ArrayListN COMMA ArrayList1 {$$=mknode(2,ARRAY_N,yylineno,$1,$3);}
@@ -145,7 +144,7 @@ ArrayListN: ArrayListN COMMA ArrayList1 {$$=mknode(2,ARRAY_N,yylineno,$1,$3);}
 ArrayList1: LC ArrayList RC {$$=mknode(2,ARRAY,yylineno,$2);}
         ;
 ArrayList: ArrayList COMMA Exp {$$=mknode(2,ARRAY_LIST,yylineno,$1,$3);} // 匹配数组的赋值
-        | Exp {$$=mknode(1,ARRAY_LIST,yylineno,$1);} // 用type_id来存储，因为不确定元素是哪种类型的
+        | Exp {$$=mknode(1,ARRAY_LIST,yylineno,$1);}                     // 用type_id来存储，因为不确定元素是哪种类型的
         ;
 %%
 

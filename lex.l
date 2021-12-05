@@ -17,29 +17,29 @@ typedef union {
 %}
 %option yylineno
 
-id   [A-Za-z][A-Za-z0-9]*  
+id     [A-Za-z][A-Za-z0-9]*  
 int    [0-9]+
 float  ([0-9]*\.[0-9]+)|([0-9]+\.)
 char   (\'[^\n]\')|(\"[^\n]\")
 
 %%
-{int}        {yylval.type_int=atoi(yytext); return INT;}
-{float}      {yylval.type_float=atof(yytext); return FLOAT;}
-{char}       {yylval.type_char=*(yytext+1); return CHAR;}
-"int"        {strcpy(yylval.type_id,  yytext);return TYPE;}
-"float"      {strcpy(yylval.type_id,  yytext);return TYPE;}
-"char"       {strcpy(yylval.type_id, yytext);return TYPE;}
-"return"     {return RETURN;}
-"if"         {return IF;}
-"else"       {return ELSE;}
-"while"      {return WHILE;}
-"for"        {return FOR;}
-"break"      {return BREAK;}
-"continue"   {return CONTINUE;}
-{id}       {strcpy(yylval.type_id,  yytext); return ID;/*由于关键字的形式也符合标识符的规则，所以把关键字的处理全部放在标识符的前面，优先识别*/}
+{int}       {yylval.type_int=atoi(yytext); return INT;}
+{float}     {yylval.type_float=atof(yytext); return FLOAT;}
+{char}      {yylval.type_char=*(yytext+1); return CHAR;}
+"int"       {strcpy(yylval.type_id,  yytext);return TYPE;}
+"float"     {strcpy(yylval.type_id,  yytext);return TYPE;}
+"char"      {strcpy(yylval.type_id, yytext);return TYPE;}
+"return"    {return RETURN;}
+"if"        {return IF;}
+"else"      {return ELSE;}
+"while"     {return WHILE;}
+"for"       {return FOR;}
+"break"     {return BREAK;}
+"continue"  {return CONTINUE;}
+{id}        {strcpy(yylval.type_id,  yytext);return ID;}
 ";"			{return SEMI;}
 ","			{return COMMA;}
-">"|"<"|">="|"<="|"=="|"!=" {strcpy(yylval.type_id, yytext);;return RELOP;}
+">"|"<"|">="|"<="|"=="|"!=" {strcpy(yylval.type_id, yytext);return RELOP;}
 "="			{return ASSIGNOP;}
 "+"			{return PLUS;}
 "-"			{return MINUS;}
@@ -56,8 +56,8 @@ char   (\'[^\n]\')|(\"[^\n]\")
 "}"			{return RC;}
 "["         {return LB;}
 "]"         {return RB;}
-[\n]           {yycolumn=1;}   
-[ \r\t]          {}   
+[\n]       	{yycolumn=1;}   
+[ \r\t]     {}   
 .			{printf("Error type A :Mysterious character \"%s\"\n\t at Line %d\n",yytext,yylineno);}
 %%
 
